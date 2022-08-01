@@ -55,7 +55,7 @@ function showInvalid(element) {
   }
 }
 
-function updatePwdStrengthLabel() {
+function calculatePwdScore() {
   const input = pwd.value;
   let counter = 0;
 
@@ -65,6 +65,11 @@ function updatePwdStrengthLabel() {
   if (input.match(/[\!\@\#\$\%\^\&\*\(\)\-\_\+\=]/)) counter += 1;
   if (input.length > 8) counter += 1;
 
+  return counter;
+}
+
+function updatePwdStrengthLabel() {
+  const score = calculatePwdScore();
   const strengthLabel = document.getElementById('pwd-strength');
   strengthLabel.classList.remove(
     'text-danger',
@@ -74,7 +79,7 @@ function updatePwdStrengthLabel() {
     'text-success'
   );
 
-  switch (counter) {
+  switch (score) {
     case 0:
       strengthLabel.textContent = 'unacceptable';
       strengthLabel.classList.add('text-danger');
