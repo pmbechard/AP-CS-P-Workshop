@@ -81,4 +81,11 @@ function checkAllValidity() {
   if (allValid) showSuccessMsg();
 }
 
-function showSuccessMsg() {}
+function showSuccessMsg() {
+  const successToast = document.getElementById('successToast');
+  const toast = new bootstrap.Toast(successToast);
+  toast.show();
+  setInterval(() => {
+    location.reload();
+  }, 5000);
+}
