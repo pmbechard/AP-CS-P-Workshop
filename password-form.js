@@ -55,9 +55,6 @@ function showInvalid(element) {
   }
 }
 
-form.addEventListener('submit', (event) => {
-  checkAllValidity();
-});
 submit.addEventListener('click', (event) => {
   checkAllValidity();
 });
