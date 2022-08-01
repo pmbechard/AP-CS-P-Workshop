@@ -65,8 +65,6 @@ function updatePwdStrengthLabel() {
   if (input.match(/[\!\@\#\$\%\^\&\*\(\)\-\_\+\=]/)) counter += 1;
   if (input.length > 8) counter += 1;
 
-  console.log(counter);
-
   const strengthLabel = document.getElementById('pwd-strength');
   strengthLabel.classList.remove(
     'text-danger',
