@@ -119,7 +119,7 @@ function checkAllValidity() {
     showInvalid(pwd);
     allValid = false;
   }
-  if (verifyPwd.value !== pwd.value) {
+  if (verifyPwd.value !== pwd.value || !verifyPwd.value) {
     showInvalid(verifyPwd);
     allValid = false;
   }
