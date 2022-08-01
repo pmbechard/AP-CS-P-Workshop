@@ -28,6 +28,9 @@ fieldsToValidate.forEach((field) => {
     field.addEventListener('input', () => {
       field.setCustomValidity('');
       field.validity.valid ? showValid(field) : showInvalid(field);
+      if (field === pwd) {
+        updatePwdStrengthLabel();
+      }
     });
   }
 });
@@ -49,6 +52,52 @@ function showInvalid(element) {
     element.classList.remove('valid');
     element.classList.add('invalid');
     element.nextElementSibling.nextElementSibling.style.color = '#900';
+  }
+}
+
+function updatePwdStrengthLabel() {
+  const input = pwd.value;
+  let counter = 0;
+
+  if (input.match(/[a-z]/)) counter += 1;
+  if (input.match(/[A-Z]/)) counter += 1;
+  if (input.match(/[0-9]/)) counter += 1;
+  if (input.match(/[\!\@\#\$\%\^\&\*\(\)\-\_\+\=]/)) counter += 1;
+  if (input.length > 8) counter += 1;
+
+  console.log(counter);
+
+  const strengthLabel = document.getElementById('pwd-strength');
+  strengthLabel.classList.remove(
+    'text-danger',
+    'text-warning',
+    'text-info',
+    'text-primary',
+    'text-success'
+  );
+
+  switch (counter) {
+    case 0:
+      strengthLabel.textContent = 'unacceptable';
+      strengthLabel.classList.add('text-danger');
+      break;
+    case 1:
+      strengthLabel.textContent = 'weak';
+      strengthLabel.classList.add('text-warning');
+      break;
+    case 2:
+      strengthLabel.textContent = 'normal';
+      strengthLabel.classList.add('text-info');
+      break;
+    case 3:
+    case 4:
+      strengthLabel.textContent = 'strong';
+      strengthLabel.classList.add('text-primary');
+      break;
+    case 5:
+      strengthLabel.textContent = 'very strong';
+      strengthLabel.classList.add('text-success');
+      break;
   }
 }
 
