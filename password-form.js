@@ -45,9 +45,6 @@ function showValid(element) {
 function showInvalid(element) {
   if (element === agreement) {
     element.nextElementSibling.style.color = '#900';
-    //   } else if (!element.value) {
-    //     element.classList.remove('valid', 'invalid');
-    //     element.nextElementSibling.nextElementSibling.style.color = '#777';
   } else {
     element.classList.remove('valid');
     element.classList.add('invalid');
