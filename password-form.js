@@ -12,6 +12,7 @@ const email = document.getElementById('email');
 const pwd = document.getElementById('pwd');
 const verifyPwd = document.getElementById('verifyPwd');
 const agreement = document.getElementById('agreement');
+const submit = document.getElementById('submit-btn');
 
 const fieldsToValidate = [username, email, pwd, verifyPwd, agreement];
 
@@ -32,35 +33,58 @@ fieldsToValidate.forEach((field) => {
 });
 
 function showValid(element) {
-  element.classList.remove('invalid');
-  element.classList.add('valid');
+  if (element === agreement) {
+    element.nextElementSibling.style.color = 'green';
+  } else {
+    element.classList.remove('invalid');
+    element.classList.add('valid');
+    element.nextElementSibling.nextElementSibling.style.color = 'green';
+  }
 }
 
 function showInvalid(element) {
-  element.classList.remove('valid');
-  element.classList.add('invalid');
+  if (element === agreement) {
+    element.nextElementSibling.style.color = '#900';
+    //   } else if (!element.value) {
+    //     element.classList.remove('valid', 'invalid');
+    //     element.nextElementSibling.nextElementSibling.style.color = '#777';
+  } else {
+    element.classList.remove('valid');
+    element.classList.add('invalid');
+    element.nextElementSibling.nextElementSibling.style.color = '#900';
+  }
 }
 
 form.addEventListener('submit', (event) => {
-  // if any field is invalid, display custom instructions underneath field
-  if (!username.validity.valid) {
-    username.setCustomValidity('Please enter a valid username.');
-    username.reportValidity();
-  } else if (!email.validity.valid) {
-    email.setCustomValidity('Please enter a valid email address.');
-    email.reportValidity();
-  } else if (!pwd.validity.valid) {
-    pwd.setCustomValidity(
-      'Must be 8 characters with uppercase, lowercase, and number or special character.'
-    );
-    pwd.reportValidity();
-  } else if (verifyPwd.value !== pwd.value) {
-    verifyPwd.setCustomValidity('Passwords must match.');
-    verifyPwd.reportValidity();
-  } else if (!agreement.checked) {
-    agreement.setCustomValidity(
-      "Please confirm that you've read and agreement to the Terms & Conditions"
-    );
-    agreement.reportValidity();
-  }
+  checkAllValidity();
 });
+submit.addEventListener('click', (event) => {
+  checkAllValidity();
+});
+
+function checkAllValidity() {
+  let allValid = true;
+  if (!username.validity.valid) {
+    showInvalid(username);
+    allValid = false;
+  }
+  if (!email.validity.valid) {
+    showInvalid(email);
+    allValid = false;
+  }
+  if (!pwd.validity.valid) {
+    showInvalid(pwd);
+    allValid = false;
+  }
+  if (verifyPwd.value !== pwd.value) {
+    showInvalid(verifyPwd);
+    allValid = false;
+  }
+  if (!agreement.checked) {
+    showInvalid(agreement);
+    allValid = false;
+  }
+  if (allValid) showSuccessMsg();
+}
+
+function showSuccessMsg() {}
